@@ -1,0 +1,1064 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>SDAC Agenda - Calendario condiviso della Scuola D'Arte Cinematografica di Genova</title>
+  <meta name="theme-color" id="themeColorMeta" content="#9f1020">
+  <meta name="description" content="SDAC Agenda: calendario condiviso, taccuino e rubrica per la Scuola D'Arte Cinematografica di Genova.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="SDAC Agenda">
+  <script>
+    (function(){
+      try{
+        var theme = localStorage.getItem("sdac_agenda_theme");
+        if(theme === "light" || theme === "dark"){
+          document.documentElement.setAttribute("data-theme", theme);
+          document.documentElement.style.colorScheme = theme;
+          var meta = document.getElementById("themeColorMeta");
+          if(meta) meta.setAttribute("content", theme === "light" ? "#efe6d7" : "#9f1020");
+        }
+      }catch(e){}
+    })();
+  </script>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .brandRow{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:0;
+    }
+    .themeToggleBtn{
+      width:34px;
+      height:34px;
+      padding:0;
+      justify-content:center;
+      gap:0;
+      border-radius:999px;
+      border-color:rgba(122,162,255,.38);
+      background:rgba(255,255,255,.045);
+      color:rgba(244,238,221,.96);
+      box-shadow:0 4px 14px rgba(24,10,13,.18);
+      flex:0 0 auto;
+      transition:border-color .16s ease, background .16s ease, transform .12s ease, box-shadow .16s ease;
+    }
+    .themeToggleBtn:hover{
+      border-color:rgba(122,162,255,.62);
+      background:rgba(122,162,255,.10);
+      transform:translateY(-1px);
+    }
+    .themeToggleBtn:active{
+      transform:translateY(0);
+    }
+    .themeToggleBtn .ico{
+      font-size:16px;
+    }
+    :root[data-theme="light"]{
+      --bg:#e7dcc8;
+      --bg-deep:#d8ccb7;
+      --bg-soft:#efe6d7;
+      --panel:#fffaf0;
+      --panel-strong:#fffdf7;
+      --panel-soft:#f2e9d9;
+      --text:#3a2a22;
+      --muted:#6c584b;
+      --line:#d5c2a1;
+      --line-strong:#b78d55;
+      --accent:#7a3040;
+      --accent-strong:#5d2531;
+      --accent-soft:#9a5160;
+      --accent2:#c39a5d;
+      --danger:#9a3f46;
+      --shadow:0 18px 36px rgba(86,58,34,.12), 0 6px 14px rgba(86,58,34,.08);
+      --shadow-soft:0 10px 22px rgba(86,58,34,.08);
+    }
+    :root[data-theme="light"] body{
+      background:
+        radial-gradient(circle at top, rgba(255,255,255,.72), transparent 34%),
+        linear-gradient(180deg, #f7f0e4 0%, #ece1cf 30%, #ddd0bb 100%);
+    }
+    :root[data-theme="light"] body::before{
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.24), transparent 28%, rgba(165,126,84,.06) 68%, transparent 100%),
+        repeating-linear-gradient(0deg, rgba(124,88,57,.03) 0, rgba(124,88,57,.03) 2px, transparent 2px, transparent 5px);
+      opacity:.42;
+      mix-blend-mode:multiply;
+    }
+    :root[data-theme="light"] .brandTitle{
+      color:#5b2a31;
+    }
+    :root[data-theme="light"] .brandTitle::after{
+      background:linear-gradient(90deg, rgba(122,48,64,.75), rgba(195,154,93,.68));
+    }
+    :root[data-theme="light"] .todayLine{
+      color:#6b5646;
+    }
+    :root[data-theme="light"] .themeToggleBtn{
+      border-color:rgba(122,48,64,.22);
+      background:rgba(122,48,64,.06);
+      color:#6a2b37;
+      box-shadow:0 4px 14px rgba(86,58,34,.10);
+    }
+    :root[data-theme="light"] .themeToggleBtn:hover{
+      border-color:rgba(122,48,64,.42);
+      background:rgba(122,48,64,.12);
+    }
+    :root[data-theme="light"] .card{
+      background:rgba(255,252,245,.74);
+      backdrop-filter:blur(6px);
+    }
+    :root[data-theme="light"] .cardHeader{
+      background:rgba(122,48,64,.06);
+    }
+    :root[data-theme="light"] .btn,
+    :root[data-theme="light"] .tab{
+      background:rgba(122,48,64,.03);
+    }
+    :root[data-theme="light"] .btn:hover,
+    :root[data-theme="light"] .tab:hover{
+      background:rgba(122,48,64,.07);
+    }
+    :root[data-theme="light"] .btn.primary{
+      background:rgba(122,48,64,.10);
+      border-color:rgba(122,48,64,.30);
+    }
+    :root[data-theme="light"] .btn.danger{
+      background:rgba(154,63,70,.08);
+      border-color:rgba(154,63,70,.25);
+    }
+    :root[data-theme="light"] .bookmarkTab{
+      color:#fdf9f1;
+      box-shadow:0 12px 20px rgba(86,58,34,.10);
+    }
+    :root[data-theme="light"] .bookmarkTab--calendar{
+      background:linear-gradient(180deg, rgba(139,64,79,.96), rgba(104,43,56,.98));
+    }
+    :root[data-theme="light"] .bookmarkTab--notebook{
+      background:linear-gradient(180deg, rgba(95,112,90,.96), rgba(70,86,66,.98));
+      border-color:rgba(120,111,79,.28);
+    }
+    :root[data-theme="light"] .bookmarkTab--contacts{
+      background:linear-gradient(180deg, rgba(173,122,66,.96), rgba(138,95,51,.98));
+      border-color:rgba(176,138,74,.30);
+    }
+    :root[data-theme="light"] .bookmarkTab--today{
+      background:linear-gradient(180deg, rgba(175,106,77,.96), rgba(142,78,52,.98));
+      border-color:rgba(176,138,74,.28);
+    }
+    :root[data-theme="light"] .bookmarkTab.active{
+      box-shadow:0 14px 24px rgba(86,58,34,.14);
+      filter:saturate(1.02) brightness(1.02);
+    }
+    @media (max-width: 860px){
+      .brandRow{
+        width:100%;
+      }
+    }
+  </style>
+
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="headerTop">
+        <div class="headLeft">
+          <div class="brandBlock">
+            <div class="brandRow">
+              <h1 class="brandTitle">SDAC Agenda</h1>
+              <button class="btn iconBtn themeToggleBtn" id="themeToggleBtn" type="button" title="Passa alla modalità chiara" aria-label="Passa alla modalità chiara">
+                <span class="ico" id="themeToggleIcon">☀️</span>
+              </button>
+            </div>
+            <button id="todayLine" class="todayLine todayLineButton" type="button" title="Apri Oggi" aria-label="Apri la pagina Oggi"></button>
+          </div>
+        </div>
+
+        <div class="actionsBlock">
+          <div class="actions">
+            <button class="btn hidden installActionBtn" id="installBtn" type="button" title="Installa SDAC Agenda">Installa</button>
+
+            <div class="settingsMenuWrap" id="settingsMenuWrap">
+              <button class="btn iconBtn settingsMenuBtn" id="settingsMenuBtn" type="button" title="Impostazioni" aria-label="Apri Impostazioni" aria-haspopup="menu" aria-expanded="false">
+                <span class="ico" aria-hidden="true">⚙️</span>
+              </button>
+              <div class="settingsDropdown" id="settingsMenu" role="menu" aria-label="Impostazioni" hidden>
+                <button class="settingsMenuItem" id="btnExport" type="button" role="menuitem" title="Esporta tutti i dati in un file JSON">
+                  <span class="settingsMenuItemIcon" aria-hidden="true">📤</span>
+                  <span>Esporta</span>
+                </button>
+                <button class="settingsMenuItem" id="btnImportTrigger" type="button" role="menuitem" title="Importa i dati da un file JSON">
+                  <span class="settingsMenuItemIcon" aria-hidden="true">⬆️</span>
+                  <span>Importa</span>
+                </button>
+                <input id="importFile" type="file" accept="application/json" aria-label="Importa JSON" hidden>
+                <button class="settingsMenuItem settingsMenuItem--danger" id="btnReset" type="button" role="menuitem" title="Azzera tutto dopo aver creato un export di sicurezza">
+                  <span class="settingsMenuItemIcon" aria-hidden="true">♻️</span>
+                  <span>Reset</span>
+                </button>
+              </div>
+            </div>
+
+            <button class="btn iconBtn cloudActionBtn" id="btnCloudRefresh" type="button" title="Controlla e sincronizza il cloud" aria-label="Controlla e sincronizza il cloud">
+              <span class="ico cloudActionIcon" aria-hidden="true">☁️</span>
+            </button>
+            <button class="btn loginActionBtn" id="loginBtn">Accesso</button>
+          </div>
+
+          <div class="headerStatusStack">
+            <div class="cloudSyncStatus" id="cloudSyncStatus" data-state="idle" role="status" aria-live="polite" title="Cloud non verificato">
+              <span class="cloudStatusIcon" aria-hidden="true">☁️</span>
+              <span class="cloudStatusText">Non verificato</span>
+              <span class="cloudStatusMeta" aria-hidden="true"></span>
+            </div>
+            <div class="sessionRoleBadge" id="sessionRoleBadge" data-role="guest" title="Ruolo attivo: Ospite" aria-label="Ruolo attivo: Ospite">
+              <span class="sessionRoleIcon" id="sessionRoleIcon" aria-hidden="true">👤</span>
+              <span class="sessionRoleText" id="sessionRoleText">Ospite</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="headerNav">
+        <div class="tabs inlineTabs bookmarkTabs" aria-label="Navigazione principale">
+          <div class="tab active bookmarkTab bookmarkTab--calendar" data-view="calendar" role="button" tabindex="0" aria-label="Calendario" title="Calendario">
+            <span class="tabPin" aria-hidden="true"></span>
+            <span class="tabIcon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="3.5" y="5" width="17" height="15.5" rx="3"></rect>
+                <path d="M7.5 3.5V7"></path>
+                <path d="M16.5 3.5V7"></path>
+                <path d="M3.5 9H20.5"></path>
+                <path d="M8 12.5H8.01"></path>
+                <path d="M12 12.5H12.01"></path>
+                <path d="M16 12.5H16.01"></path>
+                <path d="M8 16.5H8.01"></path>
+                <path d="M12 16.5H12.01"></path>
+              </svg>
+            </span>
+            <span class="tabText">Calendario</span>
+          </div>
+          <div class="tab bookmarkTab bookmarkTab--notebook" data-view="notebook" role="button" tabindex="0" aria-label="Taccuino" title="Taccuino">
+            <span class="tabPin" aria-hidden="true"></span>
+            <span class="tabIcon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 4.5H18.5C19.6 4.5 20.5 5.4 20.5 6.5V18.5C20.5 19.6 19.6 20.5 18.5 20.5H7"></path>
+                <path d="M7 4.5C5.9 4.5 5 5.4 5 6.5V18.5C5 19.6 5.9 19.6 7 20.5"></path>
+                <path d="M8.5 8H16.5"></path>
+                <path d="M8.5 12H16.5"></path>
+                <path d="M8.5 16H13.5"></path>
+                <path d="M7.5 4.5V20.5"></path>
+              </svg>
+            </span>
+            <span class="tabText">Taccuino</span>
+          </div>
+          <div class="tab bookmarkTab bookmarkTab--courses schoolRoleTab" data-view="courses" role="button" tabindex="0" aria-label="Corsi" title="Corsi">
+            <span class="tabPin" aria-hidden="true"></span>
+            <span class="tabIcon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 9.2 12 4l9 5.2-9 5.2L3 9.2Z"></path>
+                <path d="M6.5 11.2V16c2.9 2.2 8.1 2.2 11 0v-4.8"></path>
+                <path d="M21 9.3v5.4"></path>
+              </svg>
+            </span>
+            <span class="tabText">Corsi</span>
+          </div>
+          <div class="tab bookmarkTab bookmarkTab--students schoolRoleTab" data-view="students" role="button" tabindex="0" aria-label="Studenti" title="Studenti">
+            <span class="tabPin" aria-hidden="true"></span>
+            <span class="tabIcon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="9" cy="8" r="3"></circle>
+                <path d="M3.8 18.5c.6-3.2 2.5-5 5.2-5s4.6 1.8 5.2 5"></path>
+                <circle cx="17" cy="9" r="2.2"></circle>
+                <path d="M15.5 14.2c2.8-.5 4.8 1.1 5.2 4.3"></path>
+              </svg>
+            </span>
+            <span class="tabText">Studenti</span>
+          </div>
+          <div class="tab bookmarkTab bookmarkTab--administration schoolRoleTab" data-view="administration" role="button" tabindex="0" aria-label="Amministrazione" title="Amministrazione">
+            <span class="tabPin" aria-hidden="true"></span>
+            <span class="tabIcon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="3.5" y="7" width="17" height="12.5" rx="2.5"></rect>
+                <path d="M8 7V5.5C8 4.7 8.7 4 9.5 4h5c.8 0 1.5.7 1.5 1.5V7"></path>
+                <path d="M3.5 11.5h17"></path>
+                <path d="M12 10v3"></path>
+              </svg>
+            </span>
+            <span class="tabText">Amministr.</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Calendar view -->
+    <section id="view-calendar">
+      <div class="calendarStack">
+        <div class="card agendaWeekCard collapsible" id="agendaWeekCard">
+          <div class="cardHeader collapsibleHeader" role="button" tabindex="0" aria-expanded="true" aria-controls="agendaWeekBody">
+            <h2>Prossimi 7 giorni</h2>
+            <span class="chev">▾</span>
+          </div>
+          <div class="cardBody" id="agendaWeekBody">
+            <div class="agendaWeekList" id="agendaWeekList"></div>
+          </div>
+        </div>
+
+        <div class="card todoPanelCard">
+          <div class="cardBody">
+            <div id="todoMiniPanel" class="todoMiniPanel">
+              <div class="todoMiniHead">
+                <div id="toggleTodos" class="summaryLink" role="button" tabindex="0" aria-expanded="true" aria-controls="todoMiniBody">
+                  <div class="summaryLinkLabel">
+                    <div class="summaryTitle">Attività in evidenza</div>
+                  </div>
+                  <div class="summaryLinkRight" aria-hidden="true">
+                    <span class="miniChevron">▾</span>
+                  </div>
+                </div>
+                <button class="miniPlusBtn" id="openTodosBtn" type="button" aria-label="Apri Taccuino SDAC" title="Apri Taccuino SDAC">+</button>
+              </div>
+
+              <div class="todoMiniBody" id="todoMiniBody">
+                <div class="list" id="todoActiveList"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card calendarMonthCard">
+          <div class="cardHeader">
+            <h2>Calendario</h2>
+            <div class="calControls">
+              <button class="btn" id="prevMonth" title="Mese precedente">◀</button>
+              <div class="monthTitle" id="monthTitle">—</div>
+              <button class="btn" id="nextMonth" title="Mese successivo">▶</button>
+              <button class="btn primary" id="jumpToday" title="Vai al mese corrente">Oggi</button>
+            </div>
+          </div>
+          <div class="cardBody">
+            <div class="calListGrid" id="calListGrid"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notebook view -->
+    <section id="view-notebook" class="hidden">
+      <div class="grid">
+        <div class="card notesCard">
+          <div class="cardHeader">
+            <h2>Note operative SDAC</h2>
+          </div>
+          <div class="cardBody notesCardBody">
+
+            <div class="card collapsible collapsed notesEditorCard" id="notesEditorCard" style="box-shadow:none">
+              <div class="cardHeader collapsibleHeader" role="button" tabindex="0" aria-expanded="false" aria-controls="notesEditorBody">
+                <h2>Scrivi / Modifica nota</h2>
+                <div class="notesHeaderMeta">
+                  <span class="hint" id="notesEditorStatus">Nuova nota</span>
+                  <span class="chev">▾</span>
+                </div>
+              </div>
+              <div class="cardBody" id="notesEditorBody">
+                <div class="field">
+                  <label>Titolo</label>
+                  <input id="quickNoteTitle" type="text" placeholder="Es: Idee, appunti, cose da ricordare...">
+                </div>
+                <div class="field">
+                  <label>Nota</label>
+                  <textarea id="quickNotes" placeholder="Scrivi qui..."></textarea>
+                </div>
+
+                <div class="notesToolbar">
+                  <div class="notesToolbarActions">
+                    <button class="btn primary" id="btnSaveNote" type="button">Salva</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card collapsible notesListCard" id="notesListCard" style="box-shadow:none">
+              <div class="cardHeader collapsibleHeader" role="button" tabindex="0" aria-expanded="true" aria-controls="notesListBody">
+                <h2>Elenco note</h2>
+                <div class="notesHeaderMeta">
+                  <span class="hint" id="notesCount">Nessuna nota</span>
+                  <button class="btn notesHeaderBtn" id="btnNotesFavorites" type="button" aria-pressed="false">Preferiti</button>
+                  <button class="btn notesHeaderBtn" id="btnOpenNoteEditor" type="button">Nuova</button>
+                  <span class="chev">▾</span>
+                </div>
+              </div>
+              <div class="cardBody" id="notesListBody">
+                <div class="list notesList" id="notesList"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="cardHeader">
+            <h2>Taccuino SDAC: cose da fare</h2>
+          </div>
+          <div class="cardBody todoNotebookBody">
+            <div class="card collapsible collapsed todoAddCard" id="todoAddCard" style="box-shadow:none">
+              <div class="cardHeader collapsibleHeader" role="button" tabindex="0" aria-expanded="false" aria-controls="todoAddBody">
+                <h2>Aggiungi</h2>
+                <span class="chev">▾</span>
+              </div>
+              <div class="cardBody" id="todoAddBody">
+                <div class="field">
+                  <label>Attività</label>
+                  <input id="todoText" type="text" placeholder="Es: chiamare il docente di montaggio / preparare il post del corso">
+                </div>
+                <div class="row">
+                  <div class="field">
+                    <label>Priorità</label>
+                    <select id="todoPriority">
+                      <option value="med">Media</option>
+                      <option value="high">Alta</option>
+                      <option value="low">Bassa</option>
+                    </select>
+                  </div>
+                  <div class="field">
+                    <label>Tag (opzionale)</label>
+                    <input id="todoTag" type="text" placeholder="didattica, social, youtube, soci...">
+                  </div>
+                  <div class="tight">
+                    <button class="btn primary" id="addTodo" style="width:100%">Aggiungi</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card collapsible todoListCard" id="todoListCard" style="box-shadow:none">
+              <div class="cardHeader collapsibleHeader" role="button" tabindex="0" aria-expanded="true" aria-controls="todoListBody">
+                <h2>Lista</h2>
+                <div class="todoListMeta">
+                  <span class="hint" id="todoTotalCount"></span>
+                  <span class="chev">▾</span>
+                </div>
+              </div>
+              <div class="cardBody" id="todoListBody">
+                <div class="list" id="todoList"></div>
+
+                <div class="divider"></div>
+
+                <div class="row todoListFiltersRow" style="justify-content:flex-end;">
+                  <input id="todoSearch" type="text" placeholder="Cerca attività, tag o parola chiave...">
+                  <select id="todoFilter" class="tight" style="max-width:220px">
+                    <option value="all">Tutti</option>
+                    <option value="active">Attivi</option>
+                    <option value="done">Completati</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card notebookContactsCard">
+          <div class="cardHeader">
+            <h2>Rubrica</h2>
+            <button class="btn" id="openContactBtn">+ Aggiungi nuovo</button>
+          </div>
+          <div class="cardBody">
+            <div class="row contactsTools">
+              <div class="field">
+                <label>Cerca contatto</label>
+                <input id="contactSearch" type="text" placeholder="Nome, ruolo, telefono, email o note...">
+              </div>
+              <div class="field contactsFilterField">
+                <label>Categoria</label>
+                <select id="contactCategoryFilter">
+                  <option value="all">Tutte</option>
+                  <option value="docenti">Docenti</option>
+                  <option value="allievi">Allievi</option>
+                  <option value="collaboratori">Collaboratori</option>
+                  <option value="partner">Partner</option>
+                  <option value="fornitori">Fornitori</option>
+                  <option value="altro">Altro</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="contactsMetaRow">
+              <div class="hint" id="contactsMeta">Nessun contatto salvato.</div>
+            </div>
+
+            <div class="list contactList" id="contactList"></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Today view -->
+    <section id="view-today" class="hidden">
+      <div class="todayStack">
+        <div class="card todayHeroCard">
+          <div class="cardBody">
+            <div class="todayHeroTopRow">
+              <button class="smallBtn todayNavBtn" id="todayPrevBtn" type="button" aria-label="Giorno precedente" title="Giorno precedente">&#8592;</button>
+              <div class="todayHeroCenter">
+                <div class="todayHeroKicker" id="todayHeroKicker">Oggi</div>
+                <div class="todayHeroDate" id="todayHeroDate">—</div>
+                <div class="todayHeroSubline" id="todayHeroSubline">SDAC · cinema, memoria, visione</div>
+              </div>
+              <button class="smallBtn todayNavBtn" id="todayNextBtn" type="button" aria-label="Giorno successivo" title="Giorno successivo">&#8594;</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card todayAstronomyCard">
+          <div class="cardHeader"><h2>Compleanno del giorno</h2></div>
+          <div class="cardBody">
+            <div class="todayPersonBlock">
+              <div class="todayPersonHeadline" id="todayPersonHeadline">—</div>
+              <p class="todayText todayCardNote todayPersonNote" id="todayPersonNote">—</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card todayFeastCard">
+          <div class="cardHeader"><h2>Eventi del giorno</h2></div>
+          <div class="cardBody">
+            <div class="todaySectionTitle" id="todayHistoryTitle">—</div>
+            <div class="todaySectionSub" id="todayHistorySubtitle">—</div>
+            <p class="todayText" id="todayHistoryText">—</p>
+          </div>
+        </div>
+
+
+        <div class="card todayProverbCard">
+          <div class="cardHeader"><h2>Citazione del giorno</h2></div>
+          <div class="cardBody">
+            <div class="todayProverbOriginal" id="todayQuoteText">—</div>
+            <div class="todayProverbTranslation" id="todayQuoteAuthor">—</div>
+            <p class="todayText" id="todayQuoteNote">—</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Courses view -->
+    <section id="view-courses" class="hidden schoolView">
+      <div class="schoolStack">
+        <div class="card schoolHeroCard">
+          <div class="cardBody schoolHeroBody">
+            <div>
+              <div class="schoolEyebrow">Anno accademico</div>
+              <h2 class="schoolHeroTitle">Corsi SDAC <span id="coursesAcademicYear">2026/2027</span></h2>
+              <div class="hint" id="coursesRoleHint">Seleziona un corso per aprire registro, iscritti e lezioni.</div>
+            </div>
+            <div class="schoolHeroStats">
+              <div class="schoolStat"><strong id="coursesVisibleCount">0</strong><span>Corsi</span></div>
+              <div class="schoolStat"><strong id="coursesStudentCount">0</strong><span>Iscritti</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="schoolCourseGrid" id="courseGrid"></div>
+
+        <div class="card schoolCourseDetail hidden" id="courseDetailCard">
+          <div class="cardHeader schoolCourseDetailHeader">
+            <div>
+              <div class="schoolEyebrow" id="courseDetailEyebrow">Corso</div>
+              <h2 id="courseDetailTitle">—</h2>
+              <div class="hint" id="courseDetailMeta">—</div>
+            </div>
+            <button class="btn courseBackBtn" id="closeCourseDetailBtn" type="button" aria-label="Torna all’elenco dei corsi">‹ Corsi</button>
+          </div>
+          <div class="cardBody">
+            <div class="schoolCoursePanels">
+              <div class="card schoolInnerCard" id="courseSettingsCard">
+                <div class="cardHeader"><h2>Configurazione corso</h2></div>
+                <div class="cardBody">
+                  <div class="row">
+                    <div class="field">
+                      <label>Docente</label>
+                      <input id="courseTeacherName" type="text" placeholder="Nome docente">
+                    </div>
+                    <div class="field">
+                      <label>Email account Docente/i</label>
+                      <input id="courseTeacherEmail" type="text" inputmode="email" placeholder="docente1@email.it, docente2@email.it">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="field">
+                      <label>Giorno</label>
+                      <select id="courseWeekday">
+                        <option value="1">Lunedì</option><option value="2">Martedì</option><option value="3">Mercoledì</option><option value="4">Giovedì</option><option value="5">Venerdì</option><option value="6">Sabato</option><option value="0">Domenica</option>
+                      </select>
+                    </div>
+                    <div class="field"><label>Ora inizio</label><input id="courseStartTime" type="time"></div>
+                    <div class="field"><label>Ora fine</label><input id="courseEndTime" type="time"></div>
+                    <div class="field"><label>Prima lezione</label><input id="courseFirstDate" type="date"></div>
+                    <div class="field"><label>Numero lezioni</label><input id="courseLessonTarget" type="number" min="0" step="1" placeholder="Es: 10"></div>
+                  </div>
+                  <button class="btn primary" id="saveCourseSettingsBtn" type="button">Salva configurazione</button>
+                </div>
+              </div>
+
+              <div class="card schoolInnerCard">
+                <div class="cardHeader"><h2>Iscritti</h2><span class="hint" id="courseRosterCount">0 studenti</span></div>
+                <div class="cardBody"><div class="schoolRoster" id="courseRoster"></div></div>
+              </div>
+            </div>
+
+            <div class="card schoolInnerCard schoolLessonComposer" id="lessonComposerCard">
+              <div class="cardHeader"><h2>Nuova lezione / registro</h2></div>
+              <div class="cardBody">
+                <input id="lessonEditingId" type="hidden">
+                <div class="row">
+                  <div class="field"><label>Data</label><input id="lessonDate" type="date"></div>
+                  <div class="field"><label>Inizio</label><input id="lessonStartTime" type="time"></div>
+                  <div class="field"><label>Fine</label><input id="lessonEndTime" type="time"></div>
+                </div>
+                <div class="field"><label>Argomenti svolti</label><input id="lessonTopic" type="text" placeholder="Es: Campi, piani e movimenti di macchina"></div>
+                <div class="field"><label>Note della lezione</label><textarea id="lessonNotes" placeholder="Esercitazioni, materiali, comunicazioni agli studenti..."></textarea></div>
+                <div class="schoolAttendanceBox">
+                  <div class="schoolAttendanceHead">
+                    <strong>Presenze</strong>
+                    <button class="smallBtn" id="markAllPresentBtn" type="button">Segna tutti presenti</button>
+                  </div>
+                  <div class="schoolAttendanceEditor" id="lessonAttendanceEditor"></div>
+                </div>
+                <div class="schoolFormActions">
+                  <button class="btn primary" id="saveLessonBtn" type="button">Salva lezione</button>
+                  <button class="btn hidden" id="cancelLessonEditBtn" type="button">Annulla modifica</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="schoolSectionHead">
+              <div><div class="schoolEyebrow">Registro</div><h2>Lezioni</h2></div>
+              <div class="hint" id="courseLessonCount">Nessuna lezione</div>
+            </div>
+            <div class="schoolLessonList" id="courseLessonList"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Students view -->
+    <section id="view-students" class="hidden schoolView">
+      <div class="schoolStack">
+        <div class="card schoolHeroCard">
+          <div class="cardBody schoolHeroBody">
+            <div>
+              <div class="schoolEyebrow">Anno accademico</div>
+              <h2 class="schoolHeroTitle">Studenti <span id="studentsAcademicYear">2026/2027</span></h2>
+            </div>
+            <button class="btn primary" id="addStudentBtn" type="button">+ Nuovo studente</button>
+          </div>
+        </div>
+
+        <div class="card schoolFiltersCard">
+          <div class="cardBody schoolFilterRow">
+            <div class="field"><label>Cerca</label><input id="studentSearch" type="search" placeholder="Nome, email, telefono..."></div>
+            <div class="field"><label>Corso</label><select id="studentCourseFilter"><option value="all">Tutti i corsi</option></select></div>
+          </div>
+        </div>
+
+        <div class="schoolSectionHead">
+          <div><div class="schoolEyebrow">Anagrafica</div><h2>Elenco studenti</h2></div>
+          <div class="hint" id="studentListMeta">Nessuno studente</div>
+        </div>
+        <div class="schoolStudentList" id="studentList"></div>
+      </div>
+    </section>
+
+    <!-- Administration view -->
+    <section id="view-administration" class="hidden schoolView administrationView">
+      <div class="schoolStack">
+        <div class="card schoolHeroCard administrationHeroCard">
+          <div class="cardBody schoolHeroBody">
+            <div>
+              <div class="schoolEyebrow">Gestione economica</div>
+              <h2 class="schoolHeroTitle">Amministrazione <span id="administrationAcademicYear">2026/2027</span></h2>
+            </div>
+            <div class="administrationHeroStats">
+              <div class="schoolStat"><strong id="administrationExpectedTotal">€ 0</strong><span>Quote</span></div>
+              <div class="schoolStat"><strong id="administrationPaidTotal">€ 0</strong><span>Incassato</span></div>
+              <div class="schoolStat"><strong id="administrationBalanceTotal">€ 0</strong><span>Residuo</span></div>
+              <div class="schoolStat"><strong id="administrationOverdueCount">0</strong><span>Scadute</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="administrationSectionTabs" id="administrationSectionTabs" aria-label="Sezioni amministrazione">
+          <button class="administrationSectionTab adminOnlySection" type="button" data-admin-section="overview">Panoramica</button>
+          <button class="administrationSectionTab active" type="button" data-admin-section="fees">Quote studenti</button>
+          <button class="administrationSectionTab" type="button" data-admin-section="deadlines">Scadenze</button>
+          <button class="administrationSectionTab future adminOnlySection" type="button" data-admin-section="expenses" disabled>Spese <small>più avanti</small></button>
+          <button class="administrationSectionTab future adminOnlySection" type="button" data-admin-section="income" disabled>Altre entrate <small>più avanti</small></button>
+          <button class="administrationSectionTab future adminOnlySection" type="button" data-admin-section="balance" disabled>Bilancio <small>più avanti</small></button>
+        </div>
+
+        <div class="administrationPanel hidden" id="administrationOverviewPanel">
+          <div class="schoolSectionHead administrationCompactHeading">
+            <div class="schoolEyebrow">Panoramica Admin <span class="schoolEyebrowSub">· Quote per corso</span></div>
+          </div>
+          <div class="administrationCourseSummary" id="administrationCourseSummary"></div>
+        </div>
+
+        <div class="administrationPanel" id="administrationFeesPanel">
+          <div class="card schoolFiltersCard">
+            <div class="cardBody administrationFilterRow">
+              <div class="field"><label>Cerca</label><input id="administrationSearch" type="search" placeholder="Studente, corso..."></div>
+              <div class="field"><label>Corso</label><select id="administrationCourseFilter"><option value="all">Tutti i corsi</option></select></div>
+              <div class="field"><label>Stato</label><select id="administrationStatusFilter"><option value="all">Tutti</option><option value="settled">Saldati</option><option value="ok">In regola / parziali</option><option value="unpaid">Da iniziare</option><option value="overdue">Scaduti</option></select></div>
+            </div>
+          </div>
+          <div class="schoolSectionHead administrationCompactHeading">
+            <div class="schoolEyebrow">Quote studenti <span class="schoolEyebrowSub">· situazione pagamenti</span></div>
+            <div class="hint" id="administrationFeesMeta">Nessuna iscrizione</div>
+          </div>
+          <div class="administrationFeeList" id="administrationFeeList"></div>
+        </div>
+
+        <div class="administrationPanel hidden" id="administrationDeadlinesPanel">
+          <div class="schoolSectionHead">
+            <div><div class="schoolEyebrow">Scadenze</div><h2>Prossimi pagamenti da seguire</h2></div>
+            <div class="hint">La scadenza è facoltativa e non impone un importo: serve solo come promemoria.</div>
+          </div>
+          <div class="administrationDeadlineList" id="administrationDeadlineList"></div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Finance modal -->
+  <div class="overlay" id="financeOverlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal financeModal">
+      <div class="modalHeader">
+        <div>
+          <div class="schoolEyebrow" id="financeModalCourse">Corso</div>
+          <h3 id="financeModalTitle">Situazione economica</h3>
+        </div>
+        <button class="btn" id="closeFinanceBtn" type="button">Chiudi</button>
+      </div>
+      <div class="modalBody financeModalBody">
+        <input id="financeStudentId" type="hidden">
+        <input id="financeCourseId" type="hidden">
+
+        <div class="financeSummaryGrid">
+          <div><span>Quota corso</span><strong id="financeFeeDisplay">€ 0</strong></div>
+          <div><span>Pagato</span><strong id="financePaidDisplay">€ 0</strong></div>
+          <div><span>Residuo</span><strong id="financeBalanceDisplay">€ 0</strong></div>
+          <div><span>Stato</span><strong class="financeStatusBadge" id="financeStatusDisplay">—</strong></div>
+        </div>
+
+        <div class="financeSettingsGrid">
+          <div class="field">
+            <label>Quota totale del corso</label>
+            <input id="financeCourseFee" type="number" min="0" step="1" inputmode="decimal">
+            <div class="hint">Precompilata dal corso; modificabile per sconti o accordi particolari.</div>
+          </div>
+          <div class="field">
+            <label>Prossima scadenza (facoltativa)</label>
+            <input id="financeNextDueDate" type="date">
+            <div class="hint">Nessun importo previsto: lo studente può pagare la cifra concordata al momento.</div>
+          </div>
+          <div class="field financeWideField">
+            <label>Nota scadenza / amministrativa</label>
+            <input id="financeNextDueNote" type="text" placeholder="Es: ricontattare a dicembre, saldo entro fine corso...">
+          </div>
+          <div class="financeSettingsActions financeWideField">
+            <button class="btn" id="saveFinanceSettingsBtn" type="button">Salva quota e scadenza</button>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+        <div class="schoolSectionHead financeSectionHead">
+          <div><div class="schoolEyebrow">Movimenti</div><h2>Pagamenti registrati</h2></div>
+          <div class="hint">L'acconto standard è 300 €, compreso nella quota totale.</div>
+        </div>
+        <div class="financePaymentList" id="financePaymentList"></div>
+
+        <div class="card schoolInnerCard financeAddCard">
+          <div class="cardHeader"><h2>Registra pagamento</h2></div>
+          <div class="cardBody">
+            <div class="financePaymentForm">
+              <div class="field"><label>Tipo</label><select id="financePaymentKind"><option value="deposit">Acconto</option><option value="payment">Pagamento / rata</option></select></div>
+              <div class="field"><label>Importo</label><input id="financePaymentAmount" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="300"></div>
+              <div class="field"><label>Data</label><input id="financePaymentDate" type="date"></div>
+              <div class="field"><label>Metodo (facoltativo)</label><select id="financePaymentMethod"><option value="">—</option><option value="Bonifico">Bonifico</option><option value="Contanti">Contanti</option><option value="Carta/POS">Carta / POS</option><option value="Altro">Altro</option></select></div>
+              <div class="field financeWideField"><label>Nota</label><input id="financePaymentNote" type="text" placeholder="Nota facoltativa sul pagamento"></div>
+              <div class="financeWideField"><button class="btn primary" id="addFinancePaymentBtn" type="button">Registra pagamento</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Student modal -->
+  <div class="overlay" id="studentOverlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal schoolStudentModal">
+      <div class="modalHeader">
+        <h3 id="studentModalTitle">Nuovo studente</h3>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <button class="btn primary" id="saveStudentBtn" type="button">Salva</button>
+          <button class="btn danger hidden" id="deleteStudentBtn" type="button">Elimina</button>
+          <button class="btn" id="closeStudentBtn" type="button">Chiudi</button>
+        </div>
+      </div>
+      <div class="modalBody schoolStudentModalBody">
+        <input id="studentEditingId" type="hidden">
+        <div class="row">
+          <div class="field"><label>Nome</label><input id="studentFirstName" type="text" autocomplete="given-name"></div>
+          <div class="field"><label>Cognome</label><input id="studentLastName" type="text" autocomplete="family-name"></div>
+        </div>
+        <div class="row">
+          <div class="field"><label>Email</label><input id="studentEmail" type="email" autocomplete="email"></div>
+          <div class="field"><label>Telefono</label><input id="studentPhone" type="tel" autocomplete="tel"></div>
+        </div>
+        <div class="field">
+          <label>Corsi frequentati</label>
+          <div class="schoolCourseChecks" id="studentCourseChecks"></div>
+        </div>
+        <div class="field"><label>Note</label><textarea id="studentNotes" placeholder="Informazioni utili sull'iscrizione o comunicazioni interne..."></textarea></div>
+        <div class="schoolAttendanceSummary" id="studentAttendanceSummary"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Day modal -->
+  <div class="overlay" id="dayOverlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal">
+      <div class="modalHeader">
+        <h3 id="dayTitle">—</h3>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <button class="btn primary" id="btnAddEvent">Aggiungi</button>
+          <button class="btn" id="btnCancelEventEdit" type="button" hidden>Annulla</button>
+          <button class="btn" id="btnCloseDay" title="Chiudi (Esc)">Chiudi</button>
+        </div>
+      </div>
+      <div class="modalBody">
+        <div class="card collapsible collapsed" id="addEventCard" style="box-shadow:none">
+          <div class="cardHeader collapsibleHeader" role="button" tabindex="0" aria-expanded="false">
+            <h2 id="addEventTitle">Aggiungi evento</h2>
+            <span class="chev">▾</span>
+          </div>
+          <div class="cardBody">
+            <div class="row">
+              <div class="field">
+                <label>Titolo</label>
+                <input id="evTitle" type="text" placeholder="Es: Riunione soci / montaggio / attrezzatura / pubblicazione...">
+              </div>
+              <div class="field">
+                <label>Orario (opzionale)</label>
+                <input id="evTime" type="time">
+              </div>
+            </div>
+            <div class="row">
+              <div class="field">
+                <label>Categoria</label>
+                <select id="evCat">
+                  <option value="appuntamenti">🔴 Appuntamenti</option>
+                  <option value="corsi">🎬 Corsi</option>
+                  <option value="riprese">🎥 Riprese</option>
+                  <option value="attrezzatura">🛠️ Attrezzatura</option>
+                  <option value="montaggio">🖥️ Montaggio</option>
+                  <option value="riunione">👥 Riunione</option>
+                  <option value="comunicazione">📣 Comunicazione</option>
+                  <option value="social">📱 Social</option>
+                  <option value="youtube">▶️ YouTube</option>
+                  <option value="other" selected>⚪ Altro</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Luogo / link (opzionale)</label>
+                <input id="evWhere" type="text" placeholder="Es: Villa Bombrini / link Meet / set / aula">
+              </div>
+            </div>
+            <div class="field">
+              <label>Note (opzionale)</label>
+              <textarea id="evNotes" placeholder="Dettagli operativi, scaletta, contatti, promemoria..."></textarea>
+            </div>
+            <button class="btn" id="btnPrintDay" title="Stampa eventi del giorno">Stampa</button>
+            <div class="hint" style="margin-top:8px">Ordinati per orario (se c’è), poi per inserimento.</div>
+          </div>
+        </div>
+
+        <div class="card collapsible" id="eventsCard" style="box-shadow:none">
+          <div class="cardHeader collapsibleHeader" role="button" tabindex="0" aria-expanded="true">
+            <h2>Eventi</h2>
+            <span class="chev">▾</span>
+          </div>
+          <div class="cardBody">
+            <div class="list" id="dayEventsList"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact modal -->
+  <div class="overlay" id="contactOverlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal contactModal">
+      <div class="modalHeader">
+        <h3 id="contactModalTitle">Aggiungi contatto</h3>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <button class="btn primary" id="saveContactBtn">Salva</button>
+          <button class="btn" id="closeContactBtn" title="Annulla">Annulla</button>
+        </div>
+      </div>
+      <div class="modalBody contactModalBody">
+        <div class="field">
+          <label>Nome</label>
+          <input id="contactName" type="text" placeholder="Nome e cognome">
+        </div>
+        <div class="field">
+          <label>Telefono</label>
+          <input id="contactPhone" type="tel" placeholder="Telefono / WhatsApp">
+        </div>
+        <div class="field">
+          <label>Email</label>
+          <input id="contactEmail" type="email" placeholder="email@sdac.it">
+        </div>
+        <div class="field">
+          <label>Categoria</label>
+          <select id="contactCategory">
+            <option value="docenti">Docenti</option>
+            <option value="allievi">Allievi</option>
+            <option value="collaboratori">Collaboratori</option>
+            <option value="partner">Partner</option>
+            <option value="fornitori">Fornitori</option>
+            <option value="altro" selected>Altro</option>
+          </select>
+        </div>
+        <div class="field contactNotesField">
+          <label>Note / ruolo / dettagli</label>
+          <textarea id="contactNotes" placeholder="Es: docente di montaggio, allievo corso regia, partner media, disponibilità, link utili..."></textarea>
+        </div>
+        <div class="hint contactModalHint">I contatti SDAC vengono salvati insieme al resto dell’agenda e rientrano anche in export/import.</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Account modal -->
+  <div class="overlay" id="accountOverlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal accountModal">
+      <div class="modalHeader">
+        <h3 id="accountModalTitle">Accesso SDAC</h3>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <button class="btn" id="closeAccountBtn" type="button" title="Chiudi">Chiudi</button>
+        </div>
+      </div>
+      <div class="modalBody accountModalBody">
+        <div class="accountIntro">
+          <div class="accountIntroTitle">Accesso riservato SDAC</div>
+          <p class="accountIntroText">Gli account vengono invitati dalla scuola e ricevono un ruolo: Admin, Socio o Docente. Tutti lavorano sullo stesso Cloud SDAC, con permessi diversi in base al ruolo.</p>
+        </div>
+
+        <div class="accountStatus hidden" id="accountStatus"></div>
+
+        <div class="accountGuestView" id="accountGuestView">
+          <div class="accountPane" id="accountLoginPane">
+            <div class="accountPaneTitle">Accedi con il tuo account SDAC</div>
+            <form id="accountLoginForm" autocomplete="on">
+              <div class="field">
+                <label for="accountLoginEmail">Email</label>
+                <input id="accountLoginEmail" name="username" type="email" placeholder="nome@email.com" autocomplete="username" inputmode="email" list="accountRecentEmails" autocapitalize="none" spellcheck="false">
+                <datalist id="accountRecentEmails"></datalist>
+              </div>
+              <div class="field">
+                <label for="accountLoginPassword">Password</label>
+                <input id="accountLoginPassword" name="password" type="password" placeholder="Password" autocomplete="current-password">
+              </div>
+              <div class="accountFormActions">
+                <button class="btn primary" id="btnAccountLogin" type="submit">Accedi</button>
+                <button class="btn" id="btnAccountContinueFreeLogin" type="button">Continua senza accesso</button>
+                <button class="btn" id="btnAccountRecover" type="button">Password dimenticata?</button>
+              </div>
+            </form>
+            <div class="hint">Gli account autorizzati vengono invitati dalla SDAC. Le email usate di recente possono essere suggerite da Agenda; le password restano affidate esclusivamente al browser o al password manager.</div>
+          </div>
+
+          <div class="accountPane hidden" id="accountPasswordPane">
+            <div class="accountPaneTitle" id="accountPasswordTitle">Crea la tua password</div>
+            <p class="accountPasswordText" id="accountPasswordText">Scegli una password per completare l'accesso al tuo account SDAC.</p>
+            <form id="accountPasswordForm" autocomplete="on">
+              <div class="field">
+                <label for="accountNewPassword">Nuova password</label>
+                <input id="accountNewPassword" name="new-password" type="password" placeholder="Nuova password" autocomplete="new-password">
+              </div>
+              <div class="field">
+                <label for="accountNewPasswordConfirm">Conferma password</label>
+                <input id="accountNewPasswordConfirm" name="new-password-confirm" type="password" placeholder="Ripeti la password" autocomplete="new-password">
+              </div>
+              <div class="accountFormActions">
+                <button class="btn primary" id="btnAccountSetPassword" type="submit">Imposta password</button>
+                <button class="btn" id="btnAccountPasswordCancel" type="button">Torna all'accesso</button>
+              </div>
+            </form>
+            <div class="hint">La password non viene salvata da SDAC Agenda. Se il browser lo propone, puoi memorizzarla nel suo gestore credenziali.</div>
+          </div>
+        </div>
+
+        <div class="accountUserView hidden" id="accountUserView">
+          <div class="accountPaneTitle">Il tuo account</div>
+          <div class="accountInfoGrid">
+            <div class="accountInfoItem">
+              <span class="accountInfoLabel">Email</span>
+              <strong id="accountUserEmail">—</strong>
+            </div>
+            <div class="accountInfoItem">
+              <span class="accountInfoLabel">Ruolo</span>
+              <strong class="accountRoleBadge" id="accountUserRole" data-role="none">—</strong>
+            </div>
+            <div class="accountInfoItem">
+              <span class="accountInfoLabel">Sincronizzazione</span>
+              <strong id="accountUserSync">Attiva</strong>
+            </div>
+          </div>
+
+          <div class="accountUserCard" id="accountUserCtaCard">
+            <div class="accountUserCardTitle" id="accountUserCtaTitle">Cloud SDAC condiviso</div>
+            <p class="accountUserCardText" id="accountUserCtaText">I permessi dell'interfaccia dipendono dal ruolo assegnato al tuo account.</p>
+            <div class="accountFormActions">
+              <button class="btn primary" id="btnAccountManagePremium" type="button">Sincronizzazione cloud</button>
+              <button class="btn danger" id="btnAccountLogout" type="button">Esci</button>
+            </div>
+          </div>
+
+          <div class="accountPermissionSummary" id="accountPermissionSummary"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script src="oggi/today-data-core.js"></script>
+  <script src="oggi/today-data-2026-04.js"></script>
+  <script src="oggi/today-data-2026-05.js"></script>
+  <script src="oggi/today-data-2026-06.js"></script>
+  <script src="oggi/today-data-2026-07.js"></script>
+  <script src="oggi/today-utils.js"></script>
+  <script src="oggi/today-view.js"></script>
+  <script src="app.js"></script>
+  <script src="account.js"></script>
+<script>
+(function(){
+  var host=location.hostname;
+  if (!/^(?:deploy-preview-\d+|[^.]+--)sdac-agenda\.netlify\.app$/.test(host)) return;
+  var b=document.createElement('div'); b.textContent='AMBIENTE TEST — Dati dimostrativi · Nessuna modifica all’archivio ufficiale';
+  b.setAttribute('role','status');
+  b.style.cssText='position:fixed;z-index:99999;bottom:0;left:0;right:0;background:#61430b;color:white;text-align:center;padding:7px 10px;font:600 13px Arial,sans-serif;pointer-events:none;';
+  document.body.appendChild(b);
+})();
+</script>
+</body>
+</html>
